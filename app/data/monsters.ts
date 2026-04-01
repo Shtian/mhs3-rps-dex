@@ -24,7 +24,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Chatacabra",
-		imageFilename: "chatacabra.png",
+		imageFilename: "chatacabra..png",
 		rank: 1,
 		element: NE,
 		defaultAttackType: P,
@@ -123,7 +123,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Plesioth",
-		imageFilename: "plesioth.png",
+		imageFilename: "plesioth..png",
 		rank: 4,
 		element: Wa,
 		defaultAttackType: S,
@@ -150,7 +150,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Namielle",
-		imageFilename: "namielle.png",
+		imageFilename: "namielle..png",
 		rank: 7,
 		element: Wa,
 		defaultAttackType: T,
@@ -161,7 +161,7 @@ export const monsters: Monster[] = [
 	// ── Canalta Timberland ─────────────────────────────────────────────────────
 	{
 		name: "Great Izuchi",
-		imageFilename: "great-izuchi.png",
+		imageFilename: "great-izuchi..png",
 		rank: 1,
 		element: NE,
 		defaultAttackType: S,
@@ -179,7 +179,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Aknosom",
-		imageFilename: "aknosom.png",
+		imageFilename: "aknosom..png",
 		rank: 3,
 		element: Fi,
 		defaultAttackType: T,
@@ -206,7 +206,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Tetranadon",
-		imageFilename: "tetranadon.png",
+		imageFilename: "tetranadon..png",
 		rank: 3,
 		element: Wa,
 		defaultAttackType: P,
@@ -215,7 +215,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Bishaten",
-		imageFilename: "bishaten.png",
+		imageFilename: "bishaten..png",
 		rank: 3,
 		element: NE,
 		defaultAttackType: T,
@@ -233,7 +233,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Garangolm",
-		imageFilename: "garangolm.png",
+		imageFilename: "garangolm..png",
 		rank: 4,
 		element: NE,
 		defaultAttackType: P,
@@ -251,7 +251,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Somnacanth",
-		imageFilename: "somnacanth.png",
+		imageFilename: "somnacanth.jpg",
 		rank: 4,
 		element: Wa,
 		defaultAttackType: T,
@@ -278,7 +278,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Aurora Somnacanth",
-		imageFilename: "aurora-somnacanth.png",
+		imageFilename: "placeholder.png",
 		rank: 5,
 		element: Ic,
 		defaultAttackType: T,
@@ -316,7 +316,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Shogun Ceanataur",
-		imageFilename: "shogun-ceanataur.png",
+		imageFilename: "shogun-ceanataur..png",
 		rank: 3,
 		element: Wa,
 		defaultAttackType: S,
@@ -343,7 +343,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Blood Orange Bishaten",
-		imageFilename: "blood-orange-bishaten.png",
+		imageFilename: "blood-orange-bishaten..png",
 		rank: 4,
 		element: Fi,
 		defaultAttackType: S,
@@ -352,7 +352,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Almudron",
-		imageFilename: "almudron.png",
+		imageFilename: "almudron..png",
 		rank: 5,
 		element: Wa,
 		defaultAttackType: P,
@@ -406,7 +406,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Ajarakan",
-		imageFilename: "ajarakan.png",
+		imageFilename: "ajarakan..png",
 		rank: 5,
 		element: Fi,
 		defaultAttackType: T,
@@ -415,7 +415,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Odogaron",
-		imageFilename: "odogaron.png",
+		imageFilename: "odogaron..png",
 		rank: 5,
 		element: NE,
 		defaultAttackType: S,
@@ -424,7 +424,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Rakna-Kadaki",
-		imageFilename: "rakna-kadaki.png",
+		imageFilename: "rakna-kadaki..png",
 		rank: 5,
 		element: NE,
 		defaultAttackType: T,
@@ -442,7 +442,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Espinas",
-		imageFilename: "espinas.png",
+		imageFilename: "placeholder.png",
 		rank: 6,
 		element: Fi,
 		defaultAttackType: P,
@@ -460,7 +460,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Rey Dau",
-		imageFilename: "rey-dau.png",
+		imageFilename: "rey-dau..png",
 		rank: 6,
 		element: Th,
 		defaultAttackType: S,
@@ -471,7 +471,7 @@ export const monsters: Monster[] = [
 	// ── Serathis Region ────────────────────────────────────────────────────────
 	{
 		name: "Blangonga",
-		imageFilename: "blangonga.png",
+		imageFilename: "blangonga..png",
 		rank: 3,
 		element: Ic,
 		defaultAttackType: P,
@@ -507,7 +507,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Lunagaron",
-		imageFilename: "lunagaron.png",
+		imageFilename: "placeholder.png",
 		rank: 5,
 		element: Ic,
 		defaultAttackType: S,
@@ -516,7 +516,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Goss Harag",
-		imageFilename: "goss-harag.png",
+		imageFilename: "goss-harag..png",
 		rank: 5,
 		element: Ic,
 		defaultAttackType: P,
@@ -552,7 +552,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Magnamalo",
-		imageFilename: "magnamalo.png",
+		imageFilename: "magnamalo..png",
 		rank: 6,
 		element: NE,
 		defaultAttackType: S,
@@ -561,7 +561,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Ebony Odogaron",
-		imageFilename: "ebony-odogaron.png",
+		imageFilename: "ebony-odogaron..png",
 		rank: 6,
 		element: Dr,
 		defaultAttackType: S,
@@ -570,7 +570,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Arkveld",
-		imageFilename: "arkveld.png",
+		imageFilename: "arkveld..png",
 		rank: 6,
 		element: Dr,
 		defaultAttackType: T,
@@ -597,7 +597,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Malzeno",
-		imageFilename: "malzeno.png",
+		imageFilename: "placeholder.png",
 		rank: 7,
 		element: Dr,
 		defaultAttackType: S,
@@ -608,7 +608,7 @@ export const monsters: Monster[] = [
 	// ── Post-Game / Elder Dragons ──────────────────────────────────────────────
 	{
 		name: "Gore Magala",
-		imageFilename: "gore-magala.png",
+		imageFilename: "gore-magala.jpg",
 		rank: 5,
 		element: Dr,
 		defaultAttackType: P,
@@ -644,7 +644,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Ruiner Nergigante",
-		imageFilename: "ruiner-nergigante.png",
+		imageFilename: "ruiner-nergigante.jpg",
 		rank: 7,
 		element: Dr,
 		defaultAttackType: P,
@@ -680,7 +680,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Yama Tsukami",
-		imageFilename: "yama-tsukami.png",
+		imageFilename: "yama-tsukami.jpg",
 		rank: 7,
 		element: NE,
 		defaultAttackType: P,
@@ -700,7 +700,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Green Plesioth",
-		imageFilename: "green-plesioth.png",
+		imageFilename: "green-plesioth..png",
 		rank: 5,
 		element: Wa,
 		defaultAttackType: S,
@@ -763,7 +763,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Deadeye Yian Garuga",
-		imageFilename: "deadeye-yian-garuga.png",
+		imageFilename: "deadeye-yian-garuga..png",
 		rank: 7,
 		element: Fi,
 		defaultAttackType: S,
