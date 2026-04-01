@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { EMPTY_FILTERS, FilterBar } from "../components/FilterBar";
+import { filterMonsters } from "../data/filterMonsters";
 import { monsters } from "../data/monsters";
 import { AttackType, Element } from "../data/types";
 import type { Route } from "./+types/home";
@@ -141,11 +144,6 @@ function MonsterCard({ monster }: { monster: (typeof monsters)[0] }) {
 	);
 }
 
-const sortedMonsters = [...monsters].sort((a, b) => {
-	if (a.rank !== b.rank) return a.rank - b.rank;
-	return a.name.localeCompare(b.name);
-});
-
 function RpsLegend() {
 	return (
 		<div className="flex flex-wrap items-center justify-center gap-3 rounded-xl border border-white/10 bg-[#1a2535] px-4 py-3 text-sm">
@@ -184,29 +182,45 @@ function RpsLegend() {
 }
 
 export default function Home() {
+	const [filters, setFilters] = useState(EMPTY_FILTERS);
+	const filteredMonsters = filterMonsters(monsters, filters);
+
 	return (
 		<div className="min-h-screen bg-[#0f1923] text-white">
 			<div className="mx-auto max-w-7xl px-4 py-8">
 				{/* Header */}
-				<header className="mb-8 flex flex-col gap-4">
+				<header className="mb-6 flex flex-col gap-4">
 					<div>
 						<h1 className="font-bold text-2xl text-white tracking-tight">
 							MHS3 RPS Dex
 						</h1>
-						<p className="text-sm text-white/50">
-							{sortedMonsters.length} monsters
-						</p>
 					</div>
 					<RpsLegend />
 				</header>
 
+				{/* Filter Bar */}
+				<div className="mb-6">
+					<FilterBar
+						filters={filters}
+						onChange={setFilters}
+						resultCount={filteredMonsters.length}
+						totalCount={monsters.length}
+					/>
+				</div>
+
 				{/* Grid */}
 				<main>
-					<div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-						{sortedMonsters.map((monster) => (
-							<MonsterCard key={monster.name} monster={monster} />
-						))}
-					</div>
+					{filteredMonsters.length === 0 ? (
+						<p className="py-16 text-center text-sm text-white/40">
+							No monsters match your filters.
+						</p>
+					) : (
+						<div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+							{filteredMonsters.map((monster) => (
+								<MonsterCard key={monster.name} monster={monster} />
+							))}
+						</div>
+					)}
 				</main>
 			</div>
 		</div>
