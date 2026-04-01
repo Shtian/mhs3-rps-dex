@@ -41,8 +41,39 @@ export function Layout({ children }: { children: React.ReactNode }) {
 	);
 }
 
+function Footer() {
+	return (
+		<footer className="mt-8 border-white/10 border-t py-4 text-center text-white/40 text-xs">
+			Monster icons from{" "}
+			<a
+				href="https://monsterhunter.fandom.com"
+				target="_blank"
+				rel="noreferrer"
+				className="underline hover:text-white/60"
+			>
+				Monster Hunter Wiki
+			</a>{" "}
+			licensed under{" "}
+			<a
+				href="https://creativecommons.org/licenses/by-sa/3.0/"
+				target="_blank"
+				rel="noreferrer"
+				className="underline hover:text-white/60"
+			>
+				CC BY-SA 3.0
+			</a>
+			. Not affiliated with or endorsed by Capcom.
+		</footer>
+	);
+}
+
 export default function App() {
-	return <Outlet />;
+	return (
+		<>
+			<Outlet />
+			<Footer />
+		</>
+	);
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
