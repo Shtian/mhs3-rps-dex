@@ -106,7 +106,7 @@ function MonsterCard({ monster }: { monster: (typeof monsters)[0] }) {
 			</div>
 
 			{/* Enraged attacks */}
-			<div className="border-t border-white/5 bg-red-950/20 px-3 py-1.5">
+			<div className="border-white/5 border-t bg-red-950/20 px-3 py-1.5">
 				<div className="flex items-center gap-2">
 					<span className="font-medium text-[10px] text-red-400/70 uppercase tracking-wider">
 						Enraged
@@ -124,7 +124,7 @@ function MonsterCard({ monster }: { monster: (typeof monsters)[0] }) {
 			</div>
 
 			{/* Element & weaknesses */}
-			<div className="space-y-2 border-t border-white/5 px-3 py-2.5">
+			<div className="space-y-2 border-white/5 border-t px-3 py-2.5">
 				<div className="flex items-center gap-2">
 					<span className="w-14 font-medium text-[10px] text-white/40 uppercase tracking-wider">
 						Element
@@ -149,7 +149,7 @@ function MonsterCard({ monster }: { monster: (typeof monsters)[0] }) {
 			</div>
 
 			{/* Rank */}
-			<div className="flex items-center justify-between border-t border-white/5 bg-white/[0.03] px-3 py-2">
+			<div className="flex items-center justify-between border-white/5 border-t bg-white/[0.03] px-3 py-2">
 				<span className="font-medium text-[10px] text-white/40 uppercase tracking-wider">
 					Rank
 				</span>

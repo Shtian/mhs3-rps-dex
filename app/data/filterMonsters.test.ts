@@ -125,7 +125,8 @@ describe("filterMonsters", () => {
 				...emptyFilters,
 				enragedAttackTypes: [AttackType.Power],
 			});
-			const goreMagala = monsters.find((m) => m.name === "Gore Magala")!;
+			const goreMagala = monsters.find((m) => m.name === "Gore Magala");
+			if (!goreMagala) throw new Error("Gore Magala not found in monsters");
 			expect(goreMagala.enragedAttackTypes).toHaveLength(0);
 			expect(result.some((m) => m.name === "Gore Magala")).toBe(false);
 		});
