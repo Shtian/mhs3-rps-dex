@@ -4,6 +4,7 @@ import type { FilterState } from "../data/filterMonsters";
 import type { Monster } from "../data/types";
 import { AttackType, Element } from "../data/types";
 import { cn } from "../lib/utils";
+import { AttackTypeLabel } from "./AttackTypeIcon";
 import { Button } from "./ui/button";
 
 export const EMPTY_FILTERS: FilterState = {
@@ -51,6 +52,15 @@ const ELEMENT_ICONS: Record<Element, string> = {
 
 const ACTIVE_CHIP_CLASS =
 	"border-primary bg-primary/15 text-foreground ring-2 ring-primary/30 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]";
+
+const ATTACK_TYPE_ACTIVE_CLASS: Record<AttackType, string> = {
+	[AttackType.Power]:
+		"border-red-400/60 bg-red-500/15 text-red-100 ring-red-400/30",
+	[AttackType.Speed]:
+		"border-blue-400/60 bg-blue-500/15 text-blue-100 ring-blue-400/30",
+	[AttackType.Technical]:
+		"border-green-400/60 bg-green-500/15 text-green-100 ring-green-400/30",
+};
 
 const ATTACK_TYPE_LABELS: Record<AttackType, string> = {
 	[AttackType.Power]: "Power",
@@ -169,6 +179,7 @@ export function FilterBar({
 								<ToggleChip
 									key={type}
 									active={filters.defaultAttackTypes.includes(type)}
+									activeClass={ATTACK_TYPE_ACTIVE_CLASS[type]}
 									onClick={() =>
 										onChange({
 											...filters,
@@ -179,7 +190,7 @@ export function FilterBar({
 										})
 									}
 								>
-									{type}
+									<AttackTypeLabel type={type} />
 								</ToggleChip>
 							))}
 						</FilterSection>
@@ -189,6 +200,7 @@ export function FilterBar({
 								<ToggleChip
 									key={type}
 									active={filters.enragedAttackTypes.includes(type)}
+									activeClass={ATTACK_TYPE_ACTIVE_CLASS[type]}
 									onClick={() =>
 										onChange({
 											...filters,
@@ -199,7 +211,10 @@ export function FilterBar({
 										})
 									}
 								>
-									😡 {type}
+									<span className="inline-flex items-center gap-1.5">
+										<span aria-hidden="true">😡</span>
+										<AttackTypeLabel type={type} />
+									</span>
 								</ToggleChip>
 							))}
 						</FilterSection>

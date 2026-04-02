@@ -1,13 +1,6 @@
 import type { Monster } from "../data/types";
 import { AttackType, Element } from "../data/types";
-import { cn } from "../lib/utils";
-import { Badge } from "./ui/badge";
-
-const ATTACK_TYPE_COLORS: Record<AttackType, string> = {
-	[AttackType.Power]: "bg-red-700 text-red-100",
-	[AttackType.Speed]: "bg-blue-700 text-blue-100",
-	[AttackType.Technical]: "bg-green-700 text-green-100",
-};
+import { AttackTypeIcon, AttackTypeLabel } from "./AttackTypeIcon";
 
 function ElementIcon({
 	element,
@@ -29,14 +22,6 @@ function ElementIcon({
 		<span style={{ fontSize: size }} title={element}>
 			{icons[element]}
 		</span>
-	);
-}
-
-function AttackBadge({ type }: { type: AttackType }) {
-	return (
-		<Badge className={cn("border-transparent", ATTACK_TYPE_COLORS[type])}>
-			{type}
-		</Badge>
 	);
 }
 
@@ -82,7 +67,7 @@ export function MonsterCard({ monster }: { monster: Monster }) {
 					<h3 className="min-w-0 flex-1 truncate font-bold text-card-foreground text-sm">
 						{monster.name}
 					</h3>
-					<AttackBadge type={monster.defaultAttackType} />
+					<AttackTypeIcon type={monster.defaultAttackType} size={22} />
 				</div>
 			</div>
 
@@ -91,10 +76,10 @@ export function MonsterCard({ monster }: { monster: Monster }) {
 					<span className="font-medium text-[10px] text-red-400/70 uppercase tracking-wider">
 						Enraged
 					</span>
-					<div className="flex gap-1">
+					<div className="flex gap-2">
 						{monster.enragedAttackTypes.length > 0 ? (
 							monster.enragedAttackTypes.map((type) => (
-								<AttackBadge key={type} type={type} />
+								<AttackTypeIcon key={type} type={type} size={18} />
 							))
 						) : (
 							<span className="text-muted-foreground/30 text-xs">-</span>
@@ -146,19 +131,19 @@ export function RpsLegend() {
 				RPS
 			</span>
 			<div className="flex items-center gap-1.5">
-				<AttackBadge type={AttackType.Power} />
+				<AttackTypeLabel type={AttackType.Power} className="text-xs" />
 				<span className="text-muted-foreground text-xs">beats</span>
-				<AttackBadge type={AttackType.Technical} />
+				<AttackTypeLabel type={AttackType.Technical} className="text-xs" />
 			</div>
 			<div className="flex items-center gap-1.5">
-				<AttackBadge type={AttackType.Technical} />
+				<AttackTypeLabel type={AttackType.Technical} className="text-xs" />
 				<span className="text-muted-foreground text-xs">beats</span>
-				<AttackBadge type={AttackType.Speed} />
+				<AttackTypeLabel type={AttackType.Speed} className="text-xs" />
 			</div>
 			<div className="flex items-center gap-1.5">
-				<AttackBadge type={AttackType.Speed} />
+				<AttackTypeLabel type={AttackType.Speed} className="text-xs" />
 				<span className="text-muted-foreground text-xs">beats</span>
-				<AttackBadge type={AttackType.Power} />
+				<AttackTypeLabel type={AttackType.Power} className="text-xs" />
 			</div>
 		</div>
 	);
