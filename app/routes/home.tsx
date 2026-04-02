@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { EMPTY_FILTERS, FilterBar } from "../components/FilterBar";
-import { MonsterCard, RpsLegend } from "../components/HomeUi";
+import { MonsterCard } from "../components/MonsterCard";
 import { filterMonsters } from "../data/filterMonsters";
 import { monsters } from "../data/monsters";
 import type { Route } from "./+types/home";
@@ -27,7 +27,6 @@ export default function Home() {
 							MHS3 RPS Dex
 						</h1>
 					</div>
-					<RpsLegend />
 				</header>
 
 				<div className="mb-6">

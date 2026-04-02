@@ -9,12 +9,6 @@ const ATTACK_TYPE_COLORS: Record<AttackType, string> = {
 	[AttackType.Technical]: "bg-green-700 text-green-100",
 };
 
-const ATTACK_TYPE_BORDER_COLORS: Record<AttackType, string> = {
-	[AttackType.Power]: "border-red-500",
-	[AttackType.Speed]: "border-blue-500",
-	[AttackType.Technical]: "border-green-500",
-};
-
 function ElementIcon({
 	element,
 	size = 16,
@@ -69,9 +63,7 @@ export function MonsterCard({ monster }: { monster: Monster }) {
 	const imgSrc = `/monsters/${monster.imageFilename}`;
 
 	return (
-		<div
-			className={`group overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 hover:border-muted-foreground/25 ${ATTACK_TYPE_BORDER_COLORS[monster.defaultAttackType]} border-t-2`}
-		>
+		<div className="group overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 hover:border-muted-foreground/25">
 			<div className="p-3 pb-2.5">
 				<div className="flex items-center gap-3">
 					<div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-border bg-muted/20">

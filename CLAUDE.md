@@ -34,7 +34,7 @@ pnpm vitest run app/data/filterMonsters.test.ts
 **Data layer** (`app/data/`):
 - `types.ts` — `AttackType` enum (Power/Speed/Technical), `Element` enum, `Monster` type
 - `monsters.ts` — static array of ~50+ monster objects
-- `filterMonsters.ts` — pure filter function; AND logic across filter dimensions, OR logic within each dimension; sorts by rank asc then alphabetically
+- `filterMonsters.ts` — pure filter function; AND logic across filter dimensions, OR logic within each dimension; sorts alphabetically by monster name
 
 **UI layer**:
 - `app/routes/home.tsx` — single main page: RPS legend, FilterBar, responsive MonsterCard grid (2→5 cols)

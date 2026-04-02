@@ -46,10 +46,7 @@ export function filterMonsters(
 		return true;
 	});
 
-	result.sort((a, b) => {
-		if (a.rank !== b.rank) return a.rank - b.rank;
-		return a.name.localeCompare(b.name);
-	});
+	result.sort((a, b) => a.name.localeCompare(b.name));
 
 	return result;
 }

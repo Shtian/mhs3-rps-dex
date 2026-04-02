@@ -288,21 +288,21 @@ describe("filterMonsters", () => {
 	});
 
 	describe("sort order", () => {
-		it("sorts by rank ascending", () => {
+		it("sorts alphabetically", () => {
 			const result = filterMonsters(monsters, emptyFilters);
 			for (let i = 1; i < result.length; i++) {
-				expect(result[i].rank).toBeGreaterThanOrEqual(result[i - 1].rank);
+				expect(
+					result[i].name.localeCompare(result[i - 1].name),
+				).toBeGreaterThanOrEqual(0);
 			}
 		});
 
-		it("sorts alphabetically within the same rank", () => {
+		it("sorts alphabetically within filtered subsets", () => {
 			const result = filterMonsters(monsters, emptyFilters);
 			for (let i = 1; i < result.length; i++) {
-				if (result[i].rank === result[i - 1].rank) {
-					expect(
-						result[i].name.localeCompare(result[i - 1].name),
-					).toBeGreaterThanOrEqual(0);
-				}
+				expect(
+					result[i].name.localeCompare(result[i - 1].name),
+				).toBeGreaterThanOrEqual(0);
 			}
 		});
 
@@ -312,13 +312,9 @@ describe("filterMonsters", () => {
 				ranks: [3, 4],
 			});
 			for (let i = 1; i < result.length; i++) {
-				if (result[i].rank === result[i - 1].rank) {
-					expect(
-						result[i].name.localeCompare(result[i - 1].name),
-					).toBeGreaterThanOrEqual(0);
-				} else {
-					expect(result[i].rank).toBeGreaterThan(result[i - 1].rank);
-				}
+				expect(
+					result[i].name.localeCompare(result[i - 1].name),
+				).toBeGreaterThanOrEqual(0);
 			}
 		});
 	});
