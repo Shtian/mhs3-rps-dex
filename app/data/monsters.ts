@@ -251,7 +251,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Somnacanth",
-		imageFilename: "placeholder.png",
+		imageFilename: "somnacanth.png",
 		rank: 4,
 		element: Wa,
 		defaultAttackType: T,
@@ -278,7 +278,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Aurora Somnacanth",
-		imageFilename: "placeholder.png",
+		imageFilename: "aurora-somnacanth.png",
 		rank: 5,
 		element: Ic,
 		defaultAttackType: T,
@@ -442,7 +442,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Espinas",
-		imageFilename: "placeholder.png",
+		imageFilename: "espinas.png",
 		rank: 6,
 		element: Fi,
 		defaultAttackType: P,
@@ -507,7 +507,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Lunagaron",
-		imageFilename: "placeholder.png",
+		imageFilename: "lunagaron.png",
 		rank: 5,
 		element: Ic,
 		defaultAttackType: S,
@@ -597,7 +597,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Malzeno",
-		imageFilename: "placeholder.png",
+		imageFilename: "malzeno.png",
 		rank: 7,
 		element: Dr,
 		defaultAttackType: S,
@@ -608,7 +608,7 @@ export const monsters: Monster[] = [
 	// ── Post-Game / Elder Dragons ──────────────────────────────────────────────
 	{
 		name: "Gore Magala",
-		imageFilename: "placeholder.png",
+		imageFilename: "gore-magala.png",
 		rank: 5,
 		element: Dr,
 		defaultAttackType: P,
@@ -644,7 +644,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Ruiner Nergigante",
-		imageFilename: "placeholder.png",
+		imageFilename: "ruiner-nergigante.png",
 		rank: 7,
 		element: Dr,
 		defaultAttackType: P,
@@ -680,7 +680,7 @@ export const monsters: Monster[] = [
 	},
 	{
 		name: "Yama Tsukami",
-		imageFilename: "placeholder.png",
+		imageFilename: "yama-tsukami.png",
 		rank: 7,
 		element: NE,
 		defaultAttackType: P,
