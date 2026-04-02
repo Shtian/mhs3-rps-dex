@@ -6,11 +6,37 @@ import { filterMonsters } from "../data/filterMonsters";
 import { monsters } from "../data/monsters";
 import type { Route } from "./+types/home";
 
+const SITE_URL = "https://mhs3-rps-dex.example.com"; // TODO: replace with deployed URL
+const DESCRIPTION =
+	"Browse and filter all monsters in Monster Hunter Stories 3 by attack type (Power, Speed, Technical), element, and rank. Your quick-reference Kinship Stone companion.";
+
 // biome-ignore lint/correctness/noEmptyPattern: react router
 export function meta({}: Route.MetaArgs) {
 	return [
-		{ title: "MHS3 RPS Dex" },
-		{ name: "description", content: "Monster Hunter Stories 3 RPS Dex" },
+		{ title: "MHS3 RPS Dex — Monster Hunter Stories 3 Monster Reference" },
+		{ name: "description", content: DESCRIPTION },
+		// Open Graph
+		{ property: "og:type", content: "website" },
+		{ property: "og:url", content: SITE_URL },
+		{ property: "og:title", content: "MHS3 RPS Dex — Monster Hunter Stories 3 Monster Reference" },
+		{ property: "og:description", content: DESCRIPTION },
+		{ property: "og:site_name", content: "MHS3 RPS Dex" },
+		// Twitter Card
+		{ name: "twitter:card", content: "summary" },
+		{ name: "twitter:title", content: "MHS3 RPS Dex — Monster Hunter Stories 3 Monster Reference" },
+		{ name: "twitter:description", content: DESCRIPTION },
+		// Canonical
+		{ tagName: "link", rel: "canonical", href: SITE_URL },
+		// JSON-LD
+		{
+			"script:ld+json": {
+				"@context": "https://schema.org",
+				"@type": "WebSite",
+				name: "MHS3 RPS Dex",
+				description: DESCRIPTION,
+				url: SITE_URL,
+			},
+		},
 	];
 }
 

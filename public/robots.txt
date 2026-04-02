@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mhs3-rps-dex.example.com/sitemap.xml
