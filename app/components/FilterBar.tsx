@@ -49,11 +49,28 @@ const ELEMENT_ICONS: Record<Element, string> = {
 	[Element.NonElemental]: "⚪",
 };
 
-const ATTACK_TYPE_ACTIVE_COLORS: Record<AttackType, string> = {
-	[AttackType.Power]: "bg-red-700 text-red-100 border-transparent",
-	[AttackType.Speed]: "bg-blue-700 text-blue-100 border-transparent",
-	[AttackType.Technical]: "bg-green-700 text-green-100 border-transparent",
+const ACTIVE_CHIP_CLASS =
+	"border-primary bg-primary/15 text-foreground ring-2 ring-primary/30 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]";
+
+const ATTACK_TYPE_LABELS: Record<AttackType, string> = {
+	[AttackType.Power]: "Power",
+	[AttackType.Speed]: "Speed",
+	[AttackType.Technical]: "Technical",
 };
+
+function getActiveFilterLabels(filters: FilterState): string[] {
+	return [
+		...filters.defaultAttackTypes.map(
+			(type) => `Default: ${ATTACK_TYPE_LABELS[type]}`,
+		),
+		...filters.enragedAttackTypes.map(
+			(type) => `Enraged: ${ATTACK_TYPE_LABELS[type]}`,
+		),
+		...filters.ranks.map((rank) => `Rank: ${rank}`),
+		...filters.elements.map((element) => `Element: ${element}`),
+		...filters.elementWeaknesses.map((element) => `Weakness: ${element}`),
+	];
+}
 
 function FilterSection({
 	label,
@@ -79,7 +96,7 @@ function ToggleChip({
 	children,
 }: {
 	active: boolean;
-	activeClass: string;
+	activeClass?: string;
 	onClick: () => void;
 	children: React.ReactNode;
 }) {
@@ -88,8 +105,11 @@ function ToggleChip({
 			variant="outline"
 			size="sm"
 			onClick={onClick}
+			aria-pressed={active}
 			className={cn(
-				"min-h-[40px] min-w-[40px] rounded-lg",
+				"min-h-[40px] min-w-[40px] rounded-lg border-border/80 transition-colors",
+				active && "font-semibold",
+				active && ACTIVE_CHIP_CLASS,
 				active && activeClass,
 			)}
 		>
@@ -114,6 +134,7 @@ export function FilterBar({
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const hasActiveFilters = !isFiltersEmpty(filters);
 	const activeFilterCount = getActiveFilterCount(filters);
+	const activeFilterLabels = getActiveFilterLabels(filters);
 
 	return (
 		<div className="flex flex-col gap-4 rounded-xl border border-border bg-card p-4">
@@ -148,7 +169,6 @@ export function FilterBar({
 								<ToggleChip
 									key={type}
 									active={filters.defaultAttackTypes.includes(type)}
-									activeClass={ATTACK_TYPE_ACTIVE_COLORS[type]}
 									onClick={() =>
 										onChange({
 											...filters,
@@ -169,7 +189,6 @@ export function FilterBar({
 								<ToggleChip
 									key={type}
 									active={filters.enragedAttackTypes.includes(type)}
-									activeClass={ATTACK_TYPE_ACTIVE_COLORS[type]}
 									onClick={() =>
 										onChange({
 											...filters,
@@ -190,7 +209,6 @@ export function FilterBar({
 								<ToggleChip
 									key={rank}
 									active={filters.ranks.includes(rank)}
-									activeClass="bg-yellow-600/80 text-yellow-100 border-transparent"
 									onClick={() =>
 										onChange({ ...filters, ranks: toggle(filters.ranks, rank) })
 									}
@@ -205,7 +223,6 @@ export function FilterBar({
 								<ToggleChip
 									key={el}
 									active={filters.elements.includes(el)}
-									activeClass="bg-white/20 text-white border-transparent"
 									onClick={() =>
 										onChange({
 											...filters,
@@ -223,7 +240,6 @@ export function FilterBar({
 								<ToggleChip
 									key={el}
 									active={filters.elementWeaknesses.includes(el)}
-									activeClass="bg-white/20 text-white border-transparent"
 									onClick={() =>
 										onChange({
 											...filters,
@@ -239,21 +255,34 @@ export function FilterBar({
 				</div>
 			)}
 
-			<div className="flex items-center justify-between">
+			{activeFilterLabels.length > 0 && (
+				<div className="flex flex-wrap gap-2">
+					{activeFilterLabels.map((label) => (
+						<span
+							key={label}
+							className="rounded-full border border-primary/40 bg-primary/10 px-2.5 py-1 text-foreground text-xs"
+						>
+							{label}
+						</span>
+					))}
+				</div>
+			)}
+
+			<div className="flex min-h-8 items-center justify-between gap-3">
 				<span className="text-muted-foreground text-xs">
 					{resultCount === totalCount
 						? `${totalCount} monsters`
 						: `${resultCount} of ${totalCount} monsters`}
 				</span>
-				{hasActiveFilters && (
-					<Button
-						variant="outline"
-						size="sm"
-						onClick={() => onChange(EMPTY_FILTERS)}
-					>
-						Clear filters
-					</Button>
-				)}
+				<Button
+					variant="outline"
+					size="sm"
+					onClick={() => onChange(EMPTY_FILTERS)}
+					disabled={!hasActiveFilters}
+					className={cn(!hasActiveFilters && "invisible")}
+				>
+					Clear filters
+				</Button>
 			</div>
 		</div>
 	);
