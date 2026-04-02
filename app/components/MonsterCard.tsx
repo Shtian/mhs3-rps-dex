@@ -48,7 +48,7 @@ export function MonsterCard({ monster }: { monster: Monster }) {
 	const imgSrc = `/monsters/${monster.imageFilename}`;
 
 	return (
-		<div className="group overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 hover:border-muted-foreground/25">
+		<div className="group fade-in-0 w-full animate-in overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 hover:border-muted-foreground/25">
 			<div className="p-3 pb-2.5">
 				<div className="flex items-center gap-3">
 					<div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-border bg-muted/20">
@@ -64,7 +64,7 @@ export function MonsterCard({ monster }: { monster: Monster }) {
 							}}
 						/>
 					</div>
-					<h3 className="min-w-0 flex-1 truncate font-bold text-card-foreground text-sm">
+					<h3 className="min-w-0 flex-1 font-bold text-card-foreground text-sm">
 						{monster.name}
 					</h3>
 					<AttackTypeIcon type={monster.defaultAttackType} size={22} />

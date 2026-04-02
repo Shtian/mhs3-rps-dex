@@ -1,3 +1,5 @@
+import { GithubIcon as HugeGithubIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react";
 import {
 	isRouteErrorResponse,
 	Links,
@@ -8,6 +10,8 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
+import { buttonVariants } from "./components/ui/button";
+import { cn } from "./lib/utils";
 import "./app.css";
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -30,26 +34,42 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 function Footer() {
 	return (
-		<footer className="mt-8 border-border border-t py-4 text-center text-muted-foreground text-xs">
-			Monster icons from{" "}
-			<a
-				href="https://monsterhunter.fandom.com"
-				target="_blank"
-				rel="noreferrer"
-				className="underline hover:text-foreground"
-			>
-				Monster Hunter Wiki
-			</a>{" "}
-			licensed under{" "}
-			<a
-				href="https://creativecommons.org/licenses/by-sa/3.0/"
-				target="_blank"
-				rel="noreferrer"
-				className="underline hover:text-foreground"
-			>
-				CC BY-SA 3.0
-			</a>
-			. Not affiliated with or endorsed by Capcom.
+		<footer className="mt-8 border-border border-t py-4 text-muted-foreground text-xs">
+			<div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+				<p className="text-center sm:text-left">
+					Monster icons from{" "}
+					<a
+						href="https://monsterhunter.fandom.com"
+						target="_blank"
+						rel="noreferrer"
+						className="underline hover:text-foreground"
+					>
+						Monster Hunter Wiki
+					</a>{" "}
+					licensed under{" "}
+					<a
+						href="https://creativecommons.org/licenses/by-sa/3.0/"
+						target="_blank"
+						rel="noreferrer"
+						className="underline hover:text-foreground"
+					>
+						CC BY-SA 3.0
+					</a>
+					. Not affiliated with or endorsed by Capcom.
+				</p>
+				<a
+					href="https://github.com/Shtian/mhs3-rps-dex"
+					target="_blank"
+					rel="noreferrer"
+					aria-label="View repository on GitHub"
+					className={cn(
+						buttonVariants({ variant: "ghost", size: "icon-sm" }),
+						"self-center text-muted-foreground hover:text-foreground sm:self-auto",
+					)}
+				>
+					<HugeiconsIcon icon={HugeGithubIcon} size={16} strokeWidth={1.8} />
+				</a>
+			</div>
 		</footer>
 	);
 }
