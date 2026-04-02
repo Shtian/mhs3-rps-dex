@@ -161,31 +161,6 @@ function MonsterCard({ monster }: { monster: (typeof monsters)[0] }) {
 	);
 }
 
-function RpsLegend() {
-	return (
-		<div className="flex flex-wrap items-center justify-center gap-3 rounded-xl border border-border bg-card px-4 py-3 text-sm">
-			<span className="text-muted-foreground text-xs uppercase tracking-widest">
-				RPS
-			</span>
-			<div className="flex items-center gap-1.5">
-				<AttackBadge type={AttackType.Power} />
-				<span className="text-muted-foreground text-xs">beats</span>
-				<AttackBadge type={AttackType.Technical} />
-			</div>
-			<div className="flex items-center gap-1.5">
-				<AttackBadge type={AttackType.Technical} />
-				<span className="text-muted-foreground text-xs">beats</span>
-				<AttackBadge type={AttackType.Speed} />
-			</div>
-			<div className="flex items-center gap-1.5">
-				<AttackBadge type={AttackType.Speed} />
-				<span className="text-muted-foreground text-xs">beats</span>
-				<AttackBadge type={AttackType.Power} />
-			</div>
-		</div>
-	);
-}
-
 export default function Home() {
 	const [filters, setFilters] = useState(EMPTY_FILTERS);
 	const filteredMonsters = filterMonsters(monsters, filters);
@@ -200,7 +175,6 @@ export default function Home() {
 							MHS3 RPS Dex
 						</h1>
 					</div>
-					<RpsLegend />
 				</header>
 
 				{/* Filter Bar */}
