@@ -1,87 +1,61 @@
-# Welcome to React Router!
+# MHS3 RPS Dex
 
-A modern, production-ready template for building full-stack React applications using React Router.
+A Monster Hunter Stories 3 reference app for browsing and filtering monsters by attack type (Power / Speed / Technical), element, and rank.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+**Live:** [mhs3-rps-dex.vercel.app](https://mhs3-rps-dex.vercel.app)
 
 ## Features
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- Browse 50+ monsters with color-coded attack types (red = Power, blue = Speed, green = Technical)
+- Filter by name search, default attack type, enraged attack type, element, element weakness, and rank
+- Combinable filters: AND across dimensions, OR within each dimension
+- Responsive grid layout (1-5 columns depending on viewport)
+- Server-side rendered for fast initial load
+
+## Tech Stack
+
+- [React Router 7](https://reactrouter.com/) (framework mode with SSR)
+- [React 19](https://react.dev/)
+- [TailwindCSS 4](https://tailwindcss.com/)
+- [Biome](https://biomejs.dev/) for linting and formatting
+- [Vitest](https://vitest.dev/) for testing
+- Deployed on [Vercel](https://vercel.com/)
 
 ## Getting Started
 
-### Installation
-
-Install the dependencies:
-
 ```bash
-npm install
+pnpm install
+pnpm dev
 ```
 
-### Development
+The app will be available at `http://localhost:5173`.
 
-Start the development server with HMR:
+## Scripts
 
-```bash
-npm run dev
-```
+| Command          | Description                          |
+| ---------------- | ------------------------------------ |
+| `pnpm dev`       | Start dev server with HMR           |
+| `pnpm build`     | Production build                     |
+| `pnpm start`     | Serve the production build           |
+| `pnpm typecheck` | Run type-checking                    |
+| `pnpm lint`      | Check linting with Biome             |
+| `pnpm lint:fix`  | Auto-fix lint issues                 |
+| `pnpm test`      | Run tests once                       |
+| `pnpm test:watch`| Run tests in watch mode              |
 
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
+## Project Structure
 
 ```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
+app/
+  data/
+    types.ts            # AttackType, Element enums and Monster type
+    monsters.ts         # Static monster dataset
+    filterMonsters.ts   # Pure filter/sort logic
+  components/
+    FilterBar.tsx       # Search + toggle chip filters
+    MonsterCard.tsx     # Individual monster display card
+    AttackTypeIcon.tsx  # RPS type icons and labels
+  routes/
+    home.tsx            # Main (and only) page
+  root.tsx              # App shell
 ```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
