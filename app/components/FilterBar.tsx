@@ -1,9 +1,10 @@
+import { useState } from "react";
+
 import type { FilterState } from "../data/filterMonsters";
 import type { Monster } from "../data/types";
 import { AttackType, Element } from "../data/types";
 import { cn } from "../lib/utils";
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 
 export const EMPTY_FILTERS: FilterState = {
 	search: "",
@@ -22,6 +23,16 @@ function isFiltersEmpty(filters: FilterState): boolean {
 		filters.elements.length === 0 &&
 		filters.elementWeaknesses.length === 0 &&
 		filters.ranks.length === 0
+	);
+}
+
+function getActiveFilterCount(filters: FilterState): number {
+	return (
+		filters.defaultAttackTypes.length +
+		filters.enragedAttackTypes.length +
+		filters.elements.length +
+		filters.elementWeaknesses.length +
+		filters.ranks.length
 	);
 }
 
@@ -100,110 +111,134 @@ export function FilterBar({
 	resultCount,
 	totalCount,
 }: FilterBarProps) {
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const hasActiveFilters = !isFiltersEmpty(filters);
+	const activeFilterCount = getActiveFilterCount(filters);
 
 	return (
 		<div className="flex flex-col gap-4 rounded-xl border border-border bg-card p-4">
-			{/* Search */}
-			<Input
-				type="search"
-				placeholder="Search monsters..."
-				value={filters.search}
-				onChange={(e) => onChange({ ...filters, search: e.target.value })}
-				className="rounded-lg"
-			/>
-
-			{/* Filter sections */}
-			<div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-				<FilterSection label="Default Attack">
-					{Object.values(AttackType).map((type) => (
-						<ToggleChip
-							key={type}
-							active={filters.defaultAttackTypes.includes(type)}
-							activeClass={ATTACK_TYPE_ACTIVE_COLORS[type]}
-							onClick={() =>
-								onChange({
-									...filters,
-									defaultAttackTypes: toggle(filters.defaultAttackTypes, type),
-								})
-							}
-						>
-							{type}
-						</ToggleChip>
-					))}
-				</FilterSection>
-
-				<FilterSection label="Enraged Attack">
-					{Object.values(AttackType).map((type) => (
-						<ToggleChip
-							key={type}
-							active={filters.enragedAttackTypes.includes(type)}
-							activeClass={ATTACK_TYPE_ACTIVE_COLORS[type]}
-							onClick={() =>
-								onChange({
-									...filters,
-									enragedAttackTypes: toggle(filters.enragedAttackTypes, type),
-								})
-							}
-						>
-							😡 {type}
-						</ToggleChip>
-					))}
-				</FilterSection>
-
-				<FilterSection label="Rank">
-					{([1, 2, 3, 4, 5, 6, 7] as Monster["rank"][]).map((rank) => (
-						<ToggleChip
-							key={rank}
-							active={filters.ranks.includes(rank)}
-							activeClass="bg-yellow-600/80 text-yellow-100 border-transparent"
-							onClick={() =>
-								onChange({ ...filters, ranks: toggle(filters.ranks, rank) })
-							}
-						>
-							★{rank}
-						</ToggleChip>
-					))}
-				</FilterSection>
-
-				<FilterSection label="Element">
-					{Object.values(Element).map((el) => (
-						<ToggleChip
-							key={el}
-							active={filters.elements.includes(el)}
-							activeClass="bg-white/20 text-white border-transparent"
-							onClick={() =>
-								onChange({
-									...filters,
-									elements: toggle(filters.elements, el),
-								})
-							}
-						>
-							{ELEMENT_ICONS[el]} {el}
-						</ToggleChip>
-					))}
-				</FilterSection>
-
-				<FilterSection label="Weakness">
-					{Object.values(Element).map((el) => (
-						<ToggleChip
-							key={el}
-							active={filters.elementWeaknesses.includes(el)}
-							activeClass="bg-white/20 text-white border-transparent"
-							onClick={() =>
-								onChange({
-									...filters,
-									elementWeaknesses: toggle(filters.elementWeaknesses, el),
-								})
-							}
-						>
-							{ELEMENT_ICONS[el]} {el}
-						</ToggleChip>
-					))}
-				</FilterSection>
+			<div className="flex items-center gap-2">
+				<input
+					type="search"
+					placeholder="Search monsters..."
+					value={filters.search}
+					onChange={(e) => onChange({ ...filters, search: e.target.value })}
+					className={cn(
+						"h-9 w-full min-w-0 rounded-3xl border border-transparent bg-input/50 px-3 py-1 text-base outline-none transition-[color,box-shadow,background-color] file:inline-flex file:h-7 file:border-0 file:bg-transparent file:font-medium file:text-foreground file:text-sm placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40",
+						"rounded-lg",
+					)}
+				/>
+				<Button
+					variant="outline"
+					size="sm"
+					onClick={() => setIsMenuOpen((open) => !open)}
+					aria-expanded={isMenuOpen}
+					className="shrink-0 rounded-lg"
+				>
+					Filters
+					{activeFilterCount > 0 ? ` (${activeFilterCount})` : ""}
+				</Button>
 			</div>
 
-			{/* Footer: count + clear */}
+			{isMenuOpen && (
+				<div className="rounded-xl border border-border bg-background/80 p-4 shadow-sm backdrop-blur-sm">
+					<div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+						<FilterSection label="Default Attack">
+							{Object.values(AttackType).map((type) => (
+								<ToggleChip
+									key={type}
+									active={filters.defaultAttackTypes.includes(type)}
+									activeClass={ATTACK_TYPE_ACTIVE_COLORS[type]}
+									onClick={() =>
+										onChange({
+											...filters,
+											defaultAttackTypes: toggle(
+												filters.defaultAttackTypes,
+												type,
+											),
+										})
+									}
+								>
+									{type}
+								</ToggleChip>
+							))}
+						</FilterSection>
+
+						<FilterSection label="Enraged Attack">
+							{Object.values(AttackType).map((type) => (
+								<ToggleChip
+									key={type}
+									active={filters.enragedAttackTypes.includes(type)}
+									activeClass={ATTACK_TYPE_ACTIVE_COLORS[type]}
+									onClick={() =>
+										onChange({
+											...filters,
+											enragedAttackTypes: toggle(
+												filters.enragedAttackTypes,
+												type,
+											),
+										})
+									}
+								>
+									😡 {type}
+								</ToggleChip>
+							))}
+						</FilterSection>
+
+						<FilterSection label="Rank">
+							{([1, 2, 3, 4, 5, 6, 7] as Monster["rank"][]).map((rank) => (
+								<ToggleChip
+									key={rank}
+									active={filters.ranks.includes(rank)}
+									activeClass="bg-yellow-600/80 text-yellow-100 border-transparent"
+									onClick={() =>
+										onChange({ ...filters, ranks: toggle(filters.ranks, rank) })
+									}
+								>
+									★{rank}
+								</ToggleChip>
+							))}
+						</FilterSection>
+
+						<FilterSection label="Element">
+							{Object.values(Element).map((el) => (
+								<ToggleChip
+									key={el}
+									active={filters.elements.includes(el)}
+									activeClass="bg-white/20 text-white border-transparent"
+									onClick={() =>
+										onChange({
+											...filters,
+											elements: toggle(filters.elements, el),
+										})
+									}
+								>
+									{ELEMENT_ICONS[el]} {el}
+								</ToggleChip>
+							))}
+						</FilterSection>
+
+						<FilterSection label="Weakness">
+							{Object.values(Element).map((el) => (
+								<ToggleChip
+									key={el}
+									active={filters.elementWeaknesses.includes(el)}
+									activeClass="bg-white/20 text-white border-transparent"
+									onClick={() =>
+										onChange({
+											...filters,
+											elementWeaknesses: toggle(filters.elementWeaknesses, el),
+										})
+									}
+								>
+									{ELEMENT_ICONS[el]} {el}
+								</ToggleChip>
+							))}
+						</FilterSection>
+					</div>
+				</div>
+			)}
+
 			<div className="flex items-center justify-between">
 				<span className="text-muted-foreground text-xs">
 					{resultCount === totalCount
