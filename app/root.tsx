@@ -1,5 +1,6 @@
 import { GithubIcon as HugeGithubIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
+import { Analytics } from "@vercel/analytics/react";
 import {
 	isRouteErrorResponse,
 	Links,
@@ -28,6 +29,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 				{children}
 				<ScrollRestoration />
 				<Scripts />
+				<Analytics />
 			</body>
 		</html>
 	);

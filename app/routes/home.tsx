@@ -18,12 +18,18 @@ export function meta({}: Route.MetaArgs) {
 		// Open Graph
 		{ property: "og:type", content: "website" },
 		{ property: "og:url", content: SITE_URL },
-		{ property: "og:title", content: "MHS3 RPS Dex — Monster Hunter Stories 3 Monster Reference" },
+		{
+			property: "og:title",
+			content: "MHS3 RPS Dex — Monster Hunter Stories 3 Monster Reference",
+		},
 		{ property: "og:description", content: DESCRIPTION },
 		{ property: "og:site_name", content: "MHS3 RPS Dex" },
 		// Twitter Card
 		{ name: "twitter:card", content: "summary" },
-		{ name: "twitter:title", content: "MHS3 RPS Dex — Monster Hunter Stories 3 Monster Reference" },
+		{
+			name: "twitter:title",
+			content: "MHS3 RPS Dex — Monster Hunter Stories 3 Monster Reference",
+		},
 		{ name: "twitter:description", content: DESCRIPTION },
 		// Canonical
 		{ tagName: "link", rel: "canonical", href: SITE_URL },
