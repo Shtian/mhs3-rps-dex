@@ -6,7 +6,7 @@ import { filterMonsters } from "../data/filterMonsters";
 import { monsters } from "../data/monsters";
 import type { Route } from "./+types/home";
 
-const SITE_URL = "https://mhs3-rps-dex.example.com"; // TODO: replace with deployed URL
+const SITE_URL = "https://mhs3-rps-dex.vercel.app";
 const DESCRIPTION =
 	"Browse and filter all monsters in Monster Hunter Stories 3 by attack type (Power, Speed, Technical), element, and rank. Your quick-reference Kinship Stone companion.";
 

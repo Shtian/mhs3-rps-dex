@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mhs3-rps-dex.example.com/sitemap.xml
+Sitemap: https://mhs3-rps-dex.vercel.app/sitemap.xml
