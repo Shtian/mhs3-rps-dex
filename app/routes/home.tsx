@@ -38,7 +38,7 @@ function ElementIcon({
 		[Element.Ice]: "❄️",
 		[Element.Thunder]: "⚡",
 		[Element.Dragon]: "🐉",
-		[Element.NonElemental]: "⬜",
+		[Element.NonElemental]: "⚪",
 	};
 	return (
 		<span style={{ fontSize: size }} title={element}>
@@ -80,66 +80,81 @@ function MonsterCard({ monster }: { monster: (typeof monsters)[0] }) {
 	const imgSrc = `/monsters/${monster.imageFilename}`;
 	return (
 		<div
-			className={`flex flex-col gap-2 rounded-xl border border-white/10 bg-[#1a2535] p-3 transition-colors hover:border-white/20 ${ATTACK_TYPE_BORDER_COLORS[monster.defaultAttackType]} border-t-2`}
+			className={`group overflow-hidden rounded-xl border border-white/10 bg-[#1a2535] transition-all duration-200 hover:border-white/25 ${ATTACK_TYPE_BORDER_COLORS[monster.defaultAttackType]} border-t-2`}
 		>
-			{/* Icon */}
-			<div className="flex justify-center">
-				<img
-					src={imgSrc}
-					alt={monster.name}
-					className="h-16 w-16 object-contain drop-shadow-lg"
-					onError={(e) => {
-						(e.target as HTMLImageElement).style.opacity = "0.2";
-					}}
-				/>
-			</div>
-
-			{/* Name & Rank */}
-			<div className="flex flex-col gap-1">
-				<span className="text-center font-semibold text-sm text-white leading-tight">
-					{monster.name}
-				</span>
-				<div className="flex justify-center">
-					<StarRank rank={monster.rank} />
-				</div>
-			</div>
-
-			{/* Element */}
-			<div className="flex items-center justify-center gap-1">
-				<ElementIcon element={monster.element} size={14} />
-				<span className="text-white/60 text-xs">{monster.element}</span>
-			</div>
-
-			{/* Attack Types */}
-			<div className="flex flex-col gap-1">
-				<div className="flex flex-wrap justify-center gap-1">
+			{/* Header: image + name + default attack */}
+			<div className="p-3 pb-2.5">
+				<div className="flex items-center gap-3">
+					<div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/5">
+						<img
+							src={imgSrc}
+							alt={monster.name}
+							className="h-full w-full object-contain drop-shadow-lg"
+							onError={(e) => {
+								const img = e.target as HTMLImageElement;
+								if (!img.src.endsWith("placeholder.png")) {
+									img.src = "/monsters/placeholder.png";
+								}
+							}}
+						/>
+					</div>
+					<h3 className="min-w-0 flex-1 truncate font-bold text-sm text-white">
+						{monster.name}
+					</h3>
 					<AttackBadge type={monster.defaultAttackType} />
 				</div>
-				{monster.enragedAttackTypes.length > 0 && (
-					<div className="flex flex-wrap justify-center gap-1">
-						{monster.enragedAttackTypes.map((type) => (
-							<span
-								key={type}
-								className={`rounded border px-1.5 py-0.5 text-white/60 text-xs leading-tight ${ATTACK_TYPE_COLORS[type].split(" ")[0]}/20 border-current`}
-							>
-								😡 {type}
-							</span>
-						))}
+			</div>
+
+			{/* Enraged attacks */}
+			<div className="border-t border-white/5 bg-red-950/20 px-3 py-1.5">
+				<div className="flex items-center gap-2">
+					<span className="font-medium text-[10px] text-red-400/70 uppercase tracking-wider">
+						Enraged
+					</span>
+					<div className="flex gap-1">
+						{monster.enragedAttackTypes.length > 0 ? (
+							monster.enragedAttackTypes.map((type) => (
+								<AttackBadge key={type} type={type} />
+							))
+						) : (
+							<span className="text-white/20 text-xs">—</span>
+						)}
+					</div>
+				</div>
+			</div>
+
+			{/* Element & weaknesses */}
+			<div className="space-y-2 border-t border-white/5 px-3 py-2.5">
+				<div className="flex items-center gap-2">
+					<span className="w-14 font-medium text-[10px] text-white/40 uppercase tracking-wider">
+						Element
+					</span>
+					<div className="flex items-center gap-1">
+						<ElementIcon element={monster.element} size={13} />
+						<span className="text-white/70 text-xs">{monster.element}</span>
+					</div>
+				</div>
+				{monster.elementWeaknesses.length > 0 && (
+					<div className="flex items-center gap-2">
+						<span className="w-14 font-medium text-[10px] text-white/40 uppercase tracking-wider">
+							Weak to
+						</span>
+						<div className="flex gap-1">
+							{monster.elementWeaknesses.map((el) => (
+								<ElementIcon key={el} element={el} size={13} />
+							))}
+						</div>
 					</div>
 				)}
 			</div>
 
-			{/* Weaknesses */}
-			{monster.elementWeaknesses.length > 0 && (
-				<div className="flex items-center justify-center gap-1">
-					<span className="text-white/40 text-xs">Weak:</span>
-					<div className="flex gap-1">
-						{monster.elementWeaknesses.map((el) => (
-							<ElementIcon key={el} element={el} size={13} />
-						))}
-					</div>
-				</div>
-			)}
+			{/* Rank */}
+			<div className="flex items-center justify-between border-t border-white/5 bg-white/[0.03] px-3 py-2">
+				<span className="font-medium text-[10px] text-white/40 uppercase tracking-wider">
+					Rank
+				</span>
+				<StarRank rank={monster.rank} />
+			</div>
 		</div>
 	);
 }

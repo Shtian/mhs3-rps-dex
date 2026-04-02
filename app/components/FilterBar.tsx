@@ -32,7 +32,7 @@ const ELEMENT_ICONS: Record<Element, string> = {
 	[Element.Ice]: "❄️",
 	[Element.Thunder]: "⚡",
 	[Element.Dragon]: "🐉",
-	[Element.NonElemental]: "⬜",
+	[Element.NonElemental]: "⚪",
 };
 
 const ATTACK_TYPE_ACTIVE_COLORS: Record<AttackType, string> = {
