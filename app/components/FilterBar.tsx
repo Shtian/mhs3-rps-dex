@@ -1,6 +1,9 @@
 import type { FilterState } from "../data/filterMonsters";
 import type { Monster } from "../data/types";
 import { AttackType, Element } from "../data/types";
+import { cn } from "../lib/utils";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 export const EMPTY_FILTERS: FilterState = {
 	search: "",
@@ -50,7 +53,7 @@ function FilterSection({
 }) {
 	return (
 		<div className="flex flex-col gap-1.5">
-			<span className="text-white/40 text-xs uppercase tracking-widest">
+			<span className="text-muted-foreground text-xs uppercase tracking-widest">
 				{label}
 			</span>
 			<div className="flex flex-wrap gap-1.5">{children}</div>
@@ -70,17 +73,17 @@ function ToggleChip({
 	children: React.ReactNode;
 }) {
 	return (
-		<button
-			type="button"
+		<Button
+			variant="outline"
+			size="sm"
 			onClick={onClick}
-			className={`min-h-[40px] min-w-[40px] rounded-lg border px-2.5 py-1.5 font-medium text-xs transition-colors ${
-				active
-					? activeClass
-					: "border-white/10 bg-white/5 text-white/60 hover:border-white/20 hover:text-white/80"
-			}`}
+			className={cn(
+				"min-h-[40px] min-w-[40px] rounded-lg",
+				active && activeClass,
+			)}
 		>
 			{children}
-		</button>
+		</Button>
 	);
 }
 
@@ -100,14 +103,14 @@ export function FilterBar({
 	const hasActiveFilters = !isFiltersEmpty(filters);
 
 	return (
-		<div className="flex flex-col gap-4 rounded-xl border border-white/10 bg-[#1a2535] p-4">
+		<div className="flex flex-col gap-4 rounded-xl border border-border bg-card p-4">
 			{/* Search */}
-			<input
+			<Input
 				type="search"
 				placeholder="Search monsters..."
 				value={filters.search}
 				onChange={(e) => onChange({ ...filters, search: e.target.value })}
-				className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2.5 text-sm text-white placeholder:text-white/40 focus:border-white/30 focus:outline-none"
+				className="rounded-lg"
 			/>
 
 			{/* Filter sections */}
@@ -202,19 +205,19 @@ export function FilterBar({
 
 			{/* Footer: count + clear */}
 			<div className="flex items-center justify-between">
-				<span className="text-white/50 text-xs">
+				<span className="text-muted-foreground text-xs">
 					{resultCount === totalCount
 						? `${totalCount} monsters`
 						: `${resultCount} of ${totalCount} monsters`}
 				</span>
 				{hasActiveFilters && (
-					<button
-						type="button"
+					<Button
+						variant="outline"
+						size="sm"
 						onClick={() => onChange(EMPTY_FILTERS)}
-						className="rounded-lg border border-white/10 px-3 py-1.5 text-white/60 text-xs transition-colors hover:border-white/30 hover:text-white"
 					>
 						Clear filters
-					</button>
+					</Button>
 				)}
 			</div>
 		</div>

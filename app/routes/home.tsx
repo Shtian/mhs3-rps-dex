@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { EMPTY_FILTERS, FilterBar } from "../components/FilterBar";
+import { Badge } from "../components/ui/badge";
 import { filterMonsters } from "../data/filterMonsters";
 import { monsters } from "../data/monsters";
 import { AttackType, Element } from "../data/types";
+import { cn } from "../lib/utils";
 import type { Route } from "./+types/home";
 
 // biome-ignore lint/correctness/noEmptyPattern: react router
@@ -49,11 +51,9 @@ function ElementIcon({
 
 function AttackBadge({ type }: { type: AttackType }) {
 	return (
-		<span
-			className={`rounded px-1.5 py-0.5 font-semibold text-xs leading-tight ${ATTACK_TYPE_COLORS[type]}`}
-		>
+		<Badge className={cn("border-transparent", ATTACK_TYPE_COLORS[type])}>
 			{type}
-		</span>
+		</Badge>
 	);
 }
 
@@ -68,7 +68,7 @@ function StarRank({ rank }: { rank: number }) {
 			))}
 			{Array.from({ length: 7 - rank }).map((_, i) => (
 				// biome-ignore lint/suspicious/noArrayIndexKey: static stars
-				<span key={i} className="text-white/10 text-xs leading-none">
+				<span key={i} className="text-muted-foreground/20 text-xs leading-none">
 					★
 				</span>
 			))}
@@ -80,12 +80,12 @@ function MonsterCard({ monster }: { monster: (typeof monsters)[0] }) {
 	const imgSrc = `/monsters/${monster.imageFilename}`;
 	return (
 		<div
-			className={`group overflow-hidden rounded-xl border border-white/10 bg-[#1a2535] transition-all duration-200 hover:border-white/25 ${ATTACK_TYPE_BORDER_COLORS[monster.defaultAttackType]} border-t-2`}
+			className={`group overflow-hidden rounded-xl border border-border bg-card transition-all duration-200 hover:border-muted-foreground/25 ${ATTACK_TYPE_BORDER_COLORS[monster.defaultAttackType]} border-t-2`}
 		>
 			{/* Header: image + name + default attack */}
 			<div className="p-3 pb-2.5">
 				<div className="flex items-center gap-3">
-					<div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/5">
+					<div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg border border-border bg-muted/20">
 						<img
 							src={imgSrc}
 							alt={monster.name}
@@ -98,7 +98,7 @@ function MonsterCard({ monster }: { monster: (typeof monsters)[0] }) {
 							}}
 						/>
 					</div>
-					<h3 className="min-w-0 flex-1 truncate font-bold text-sm text-white">
+					<h3 className="min-w-0 flex-1 truncate font-bold text-card-foreground text-sm">
 						{monster.name}
 					</h3>
 					<AttackBadge type={monster.defaultAttackType} />
@@ -106,7 +106,7 @@ function MonsterCard({ monster }: { monster: (typeof monsters)[0] }) {
 			</div>
 
 			{/* Enraged attacks */}
-			<div className="border-white/5 border-t bg-red-950/20 px-3 py-1.5">
+			<div className="border-border/50 border-t bg-red-950/20 px-3 py-1.5">
 				<div className="flex items-center gap-2">
 					<span className="font-medium text-[10px] text-red-400/70 uppercase tracking-wider">
 						Enraged
@@ -117,26 +117,28 @@ function MonsterCard({ monster }: { monster: (typeof monsters)[0] }) {
 								<AttackBadge key={type} type={type} />
 							))
 						) : (
-							<span className="text-white/20 text-xs">—</span>
+							<span className="text-muted-foreground/30 text-xs">—</span>
 						)}
 					</div>
 				</div>
 			</div>
 
 			{/* Element & weaknesses */}
-			<div className="space-y-2 border-white/5 border-t px-3 py-2.5">
+			<div className="space-y-2 border-border/50 border-t px-3 py-2.5">
 				<div className="flex items-center gap-2">
-					<span className="w-14 font-medium text-[10px] text-white/40 uppercase tracking-wider">
+					<span className="w-14 font-medium text-[10px] text-muted-foreground uppercase tracking-wider">
 						Element
 					</span>
 					<div className="flex items-center gap-1">
 						<ElementIcon element={monster.element} size={13} />
-						<span className="text-white/70 text-xs">{monster.element}</span>
+						<span className="text-muted-foreground text-xs">
+							{monster.element}
+						</span>
 					</div>
 				</div>
 				{monster.elementWeaknesses.length > 0 && (
 					<div className="flex items-center gap-2">
-						<span className="w-14 font-medium text-[10px] text-white/40 uppercase tracking-wider">
+						<span className="w-14 font-medium text-[10px] text-muted-foreground uppercase tracking-wider">
 							Weak to
 						</span>
 						<div className="flex gap-1">
@@ -149,8 +151,8 @@ function MonsterCard({ monster }: { monster: (typeof monsters)[0] }) {
 			</div>
 
 			{/* Rank */}
-			<div className="flex items-center justify-between border-white/5 border-t bg-white/[0.03] px-3 py-2">
-				<span className="font-medium text-[10px] text-white/40 uppercase tracking-wider">
+			<div className="flex items-center justify-between border-border/50 border-t bg-muted/10 px-3 py-2">
+				<span className="font-medium text-[10px] text-muted-foreground uppercase tracking-wider">
 					Rank
 				</span>
 				<StarRank rank={monster.rank} />
@@ -161,36 +163,24 @@ function MonsterCard({ monster }: { monster: (typeof monsters)[0] }) {
 
 function RpsLegend() {
 	return (
-		<div className="flex flex-wrap items-center justify-center gap-3 rounded-xl border border-white/10 bg-[#1a2535] px-4 py-3 text-sm">
-			<span className="text-white/50 text-xs uppercase tracking-widest">
+		<div className="flex flex-wrap items-center justify-center gap-3 rounded-xl border border-border bg-card px-4 py-3 text-sm">
+			<span className="text-muted-foreground text-xs uppercase tracking-widest">
 				RPS
 			</span>
 			<div className="flex items-center gap-1.5">
-				<span className="rounded bg-red-700/80 px-2 py-0.5 font-semibold text-red-100 text-xs">
-					Power
-				</span>
-				<span className="text-white/40 text-xs">beats</span>
-				<span className="rounded bg-green-700/80 px-2 py-0.5 font-semibold text-green-100 text-xs">
-					Technical
-				</span>
+				<AttackBadge type={AttackType.Power} />
+				<span className="text-muted-foreground text-xs">beats</span>
+				<AttackBadge type={AttackType.Technical} />
 			</div>
 			<div className="flex items-center gap-1.5">
-				<span className="rounded bg-green-700/80 px-2 py-0.5 font-semibold text-green-100 text-xs">
-					Technical
-				</span>
-				<span className="text-white/40 text-xs">beats</span>
-				<span className="rounded bg-blue-700/80 px-2 py-0.5 font-semibold text-blue-100 text-xs">
-					Speed
-				</span>
+				<AttackBadge type={AttackType.Technical} />
+				<span className="text-muted-foreground text-xs">beats</span>
+				<AttackBadge type={AttackType.Speed} />
 			</div>
 			<div className="flex items-center gap-1.5">
-				<span className="rounded bg-blue-700/80 px-2 py-0.5 font-semibold text-blue-100 text-xs">
-					Speed
-				</span>
-				<span className="text-white/40 text-xs">beats</span>
-				<span className="rounded bg-red-700/80 px-2 py-0.5 font-semibold text-red-100 text-xs">
-					Power
-				</span>
+				<AttackBadge type={AttackType.Speed} />
+				<span className="text-muted-foreground text-xs">beats</span>
+				<AttackBadge type={AttackType.Power} />
 			</div>
 		</div>
 	);
@@ -201,12 +191,12 @@ export default function Home() {
 	const filteredMonsters = filterMonsters(monsters, filters);
 
 	return (
-		<div className="min-h-screen bg-[#0f1923] text-white">
+		<div className="min-h-screen">
 			<div className="mx-auto max-w-7xl px-4 py-8">
 				{/* Header */}
 				<header className="mb-6 flex flex-col gap-4">
 					<div>
-						<h1 className="font-bold text-2xl text-white tracking-tight">
+						<h1 className="font-bold font-heading text-2xl text-foreground tracking-tight">
 							MHS3 RPS Dex
 						</h1>
 					</div>
@@ -226,7 +216,7 @@ export default function Home() {
 				{/* Grid */}
 				<main>
 					{filteredMonsters.length === 0 ? (
-						<p className="py-16 text-center text-sm text-white/40">
+						<p className="py-16 text-center text-muted-foreground text-sm">
 							No monsters match your filters.
 						</p>
 					) : (
