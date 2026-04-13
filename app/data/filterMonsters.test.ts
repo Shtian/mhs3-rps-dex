@@ -5,6 +5,7 @@ import { AttackType, Element } from "./types";
 
 const emptyFilters: FilterState = {
 	search: "",
+	letterFilter: "",
 	defaultAttackTypes: [],
 	enragedAttackTypes: [],
 	elements: [],
@@ -276,6 +277,7 @@ describe("filterMonsters", () => {
 		it("applies all five filter dimensions together", () => {
 			const result = filterMonsters(monsters, {
 				search: "Zinogre",
+				letterFilter: "",
 				defaultAttackTypes: [AttackType.Speed],
 				enragedAttackTypes: [AttackType.Technical],
 				elements: [Element.Thunder],
@@ -284,6 +286,61 @@ describe("filterMonsters", () => {
 			});
 			expect(result).toHaveLength(1);
 			expect(result[0].name).toBe("Zinogre");
+		});
+	});
+
+	describe("filter by letter", () => {
+		it("returns all monsters when letterFilter is empty string", () => {
+			const result = filterMonsters(monsters, {
+				...emptyFilters,
+				letterFilter: "",
+			});
+			expect(result).toHaveLength(monsters.length);
+		});
+
+		it("returns only monsters whose name starts with the given letter", () => {
+			const result = filterMonsters(monsters, {
+				...emptyFilters,
+				letterFilter: "A",
+			});
+			expect(result.length).toBeGreaterThan(0);
+			expect(result.every((m) => m.name.toUpperCase().startsWith("A"))).toBe(
+				true,
+			);
+		});
+
+		it("is case-insensitive", () => {
+			const upper = filterMonsters(monsters, {
+				...emptyFilters,
+				letterFilter: "A",
+			});
+			const lower = filterMonsters(monsters, {
+				...emptyFilters,
+				letterFilter: "a",
+			});
+			expect(lower).toEqual(upper);
+		});
+
+		it("returns empty array when no monster starts with that letter", () => {
+			const result = filterMonsters(monsters, {
+				...emptyFilters,
+				letterFilter: "Q",
+			});
+			expect(result).toHaveLength(0);
+		});
+
+		it("ANDs with other active filters", () => {
+			const result = filterMonsters(monsters, {
+				...emptyFilters,
+				letterFilter: "Z",
+				ranks: [5],
+			});
+			expect(result.length).toBeGreaterThan(0);
+			expect(
+				result.every(
+					(m) => m.name.toUpperCase().startsWith("Z") && m.rank === 5,
+				),
+			).toBe(true);
 		});
 	});
 

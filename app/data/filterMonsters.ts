@@ -2,6 +2,7 @@ import type { AttackType, Element, Monster } from "./types";
 
 export type FilterState = {
 	search: string;
+	letterFilter: string;
 	defaultAttackTypes: AttackType[];
 	enragedAttackTypes: AttackType[];
 	elements: Element[];
@@ -15,6 +16,7 @@ export function filterMonsters(
 ): Monster[] {
 	const {
 		search,
+		letterFilter,
 		defaultAttackTypes,
 		enragedAttackTypes,
 		elements,
@@ -23,9 +25,11 @@ export function filterMonsters(
 	} = filters;
 
 	const query = search.trim().toLowerCase();
+	const letter = letterFilter.toUpperCase();
 
 	const result = monsters.filter((m) => {
 		if (query && !m.name.toLowerCase().includes(query)) return false;
+		if (letter && !m.name.toUpperCase().startsWith(letter)) return false;
 		if (
 			defaultAttackTypes.length > 0 &&
 			!defaultAttackTypes.includes(m.defaultAttackType)
