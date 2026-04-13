@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { AlphabetBar } from "../components/AlphabetBar";
 import { EMPTY_FILTERS, FilterBar } from "../components/FilterBar";
 import { MonsterCard } from "../components/MonsterCard";
 import { filterMonsters } from "../data/filterMonsters";
@@ -61,12 +62,26 @@ export default function Home() {
 					</div>
 				</header>
 
-				<div className="mb-6">
+				<div className="mb-4">
 					<FilterBar
 						filters={filters}
 						onChange={setFilters}
 						resultCount={filteredMonsters.length}
 						totalCount={monsters.length}
+					/>
+				</div>
+
+				<div className="mb-6">
+					<AlphabetBar
+						monsters={monsters}
+						activeLetter={filters.letterFilter}
+						onLetterClick={(letter) =>
+							setFilters({
+								...filters,
+								letterFilter:
+									filters.letterFilter.toUpperCase() === letter ? "" : letter,
+							})
+						}
 					/>
 				</div>
 
