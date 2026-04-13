@@ -9,6 +9,7 @@ import { Button } from "./ui/button";
 
 export const EMPTY_FILTERS: FilterState = {
 	search: "",
+	letterFilter: "",
 	defaultAttackTypes: [],
 	enragedAttackTypes: [],
 	elements: [],
@@ -19,6 +20,7 @@ export const EMPTY_FILTERS: FilterState = {
 function isFiltersEmpty(filters: FilterState): boolean {
 	return (
 		filters.search === "" &&
+		filters.letterFilter === "" &&
 		filters.defaultAttackTypes.length === 0 &&
 		filters.enragedAttackTypes.length === 0 &&
 		filters.elements.length === 0 &&
@@ -29,6 +31,7 @@ function isFiltersEmpty(filters: FilterState): boolean {
 
 function getActiveFilterCount(filters: FilterState): number {
 	return (
+		(filters.letterFilter ? 1 : 0) +
 		filters.defaultAttackTypes.length +
 		filters.enragedAttackTypes.length +
 		filters.elements.length +
@@ -50,7 +53,7 @@ const ELEMENT_ICONS: Record<Element, string> = {
 	[Element.NonElemental]: "⚪",
 };
 
-const ACTIVE_CHIP_CLASS =
+export const ACTIVE_CHIP_CLASS =
 	"border-primary bg-primary/15 text-foreground ring-2 ring-primary/30 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]";
 
 const ATTACK_TYPE_ACTIVE_CLASS: Record<AttackType, string> = {
@@ -70,6 +73,9 @@ const ATTACK_TYPE_LABELS: Record<AttackType, string> = {
 
 function getActiveFilterLabels(filters: FilterState): string[] {
 	return [
+		...(filters.letterFilter
+			? [`Letter: ${filters.letterFilter.toUpperCase()}`]
+			: []),
 		...filters.defaultAttackTypes.map(
 			(type) => `Default: ${ATTACK_TYPE_LABELS[type]}`,
 		),
